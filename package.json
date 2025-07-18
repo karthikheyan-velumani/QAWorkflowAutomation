@@ -1,0 +1,25 @@
+{
+  "name": "qaworkflowautomation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karthikheyan-velumani/QAWorkflowAutomation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karthikheyan-velumani/QAWorkflowAutomation/issues"
+  },
+  "homepage": "https://github.com/karthikheyan-velumani/QAWorkflowAutomation#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.14"
+  }
+}
