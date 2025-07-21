@@ -3,20 +3,90 @@
 tools: ['playwright']
 mode: 'agent'
 ---
-You are a Playwright test generator. Your goal is to create a robust Playwright TypeScript test file (`.spec.ts`) based on the provided scenario.
+# Configuration
+Use the following Azure DevOps config:
+- Plan ID: 625330
+- Suite ID: 625332
 
-**Instructions:**
-1.  **DO NOT generate test code based on the scenario alone.**
-2.  **DO run steps one by one using the tools provided by the Playwright MCP.** Interact with the browser as if you were a human user.
-3.  **Use role-based locators and Playwright's best practices** (auto-retrying assertions, no unnecessary `waitForTimeout`).
-4.  **Only after all steps are successfully completed and verified in the full window size browser**, emit a complete Playwright TypeScript test file that uses `@playwright/test` based on the message history.
-5.  Save the generated test file in the `tests/` directory.
-6.  The test file name should be same as the steps file name without including the word steps.
-7.  Execute the generated test file and iterate (debug/refine) until the test passes successfully.
-8.  Take the steps from the 'Access Expense Steps.md' file
-9.  If there is a test already present in the name don't create a new file instead just update the test in the same file itself.
-10. Follow the coding instructions completely.
+# Prerequisites
+1. Review and understand all instructions in test_automation_process.md BEFORE starting any implementation
+2. Verify that all helper methods described in test_automation_process.md are available
+3. Ensure .env is configured properly with:
+   - AZURE_DEVOPS_PAT
+   - AZURE_DEVOPS_ORG
+   - AZURE_DEVOPS_PROJECT
+   - AZURE_DEVOPS_API_VERSION
 
-**Coding Instructions**
-1.  The website we are going to create test cases will be slower in loading.
-2.  So We need to wait for the webpage to be completely loaded with all elements and values. Aslo Wait for each actions to be performed in the test scripts.
+# Required Helper Methods
+The following helper methods MUST be used as specified in test_automation_process.md:
+1. `loginToPortal(page)` - Use this for all login operations instead of implementing login steps manually
+2. Any other helper methods specified in test_automation_process.md that are relevant to the test case
+
+# Implementation Steps
+1. First read and understand test_automation_process.md completely
+
+2. IMPORTANT: Use Playwright MCP (Model Context Protocol) to verify and capture element locators:
+   - For each step in the test case:
+     1. Use MCP tools (browser_navigate, browser_click, browser_type, etc.) to verify the step interactively
+     2. Record the exact element references (ref) from the MCP snapshot for each interaction
+     3. Use these same element references when implementing the test script
+   - Example workflow:
+     ```typescript
+     // From MCP: browser_snapshot shows button with ref="e123"
+     await page.getByRole('button', { ref: 'e123' }).click();
+     ```
+   - Every navigation should include networkidle wait:
+     ```typescript
+     await page.goto(url, { waitUntil: 'networkidle' });
+     ```
+   - Only implement the test after verifying each step and capturing the correct element references
+   - IMPORTANT: After completing all verification steps, make sure to close the browser:
+     ```typescript
+     // Close the browser after verification is complete
+     await browser.close();
+     ```
+
+# Steps Execution Order
+1. Prerequisites and Configuration
+   - Verify all prerequisites are met
+   - Check helper methods availability
+   - Validate environment configuration
+
+2. Test Case Retrieval
+   - Use the provided Plan ID and Suite ID to fetch test cases
+   - Validate the test steps are created in test-steps directory
+
+3. Test Implementation
+   a. ALWAYS use available helper methods first
+   b. For any new functionality:
+      - Use Playwright MCP to verify and capture element locators
+      - Document the element references
+      - Implement with proper waits and verifications
+
+4. MCP Usage Requirements
+   - For each step in the test case:
+     1. Use MCP tools to verify the step interactively
+     2. Record exact element references from MCP snapshot
+     3. Use these references in test implementation
+     4. Close browser after verification
+   - Example workflow:
+     ```typescript
+     // From MCP: browser_snapshot shows button with ref="e123"
+     await page.getByRole('button', { ref: 'e123' }).click();
+     ```
+   - Every navigation must include networkidle wait:
+     ```typescript
+     await page.goto(url, { waitUntil: 'networkidle' });
+     ```
+
+5. Test Validation
+   - Run tests to verify implementation
+   - Fix any failures
+   - Document any special conditions or requirements
+
+# Important Notes
+- NEVER implement login steps manually - ALWAYS use loginToPortal helper
+- ALWAYS check for and use available helper methods before implementing new code
+- ALWAYS use MCP for element verification
+- ALWAYS include proper waits for navigation
+- ALWAYS close browser after MCP verification

@@ -5,7 +5,9 @@
   "directories": {
     "test": "tests"
   },
-  "scripts": {},
+  "scripts": {
+    "convert": "ts-node src/cli.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/karthikheyan-velumani/QAWorkflowAutomation.git"
@@ -20,6 +22,12 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.54.1",
-    "@types/node": "^24.0.14"
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^24.0.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
