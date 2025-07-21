@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 
 export async function loginToPortal(page: Page, employeeNumber: string = '100', password: string = 'test1') {
     // Navigate to login page
-    await page.goto("https://release-ncus.vistaqa.com:451/account/login", { waitUntil: 'networkidle' });
+    await page.goto("https://staging-ncus.vistaqa.com:451/account/login", { waitUntil: 'networkidle' });
 
     // Click Sign In with Employee # button 
     await page.getByRole('button', { name: 'Sign In with Employee #' }).click();
