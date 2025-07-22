@@ -9,9 +9,6 @@ Usage:
     
     2. Fetch from Azure DevOps:
        npm run convert azure <test-plan-id> <test-suite-id> <output-dir>
-    
-    3. Update test case automation status:
-       npm run convert update <test-plan-id> <test-suite-id> <test-case-id> <test-name> <status>
     `);
     process.exit(1);
 }
@@ -49,21 +46,6 @@ async function main() {
                     parseInt(planId),
                     parseInt(suiteId),
                     path.resolve(outputDir)
-                );
-                break;
-
-            case 'update':
-                if (restArgs.length !== 5) {
-                    console.error('For update mode, provide test plan ID, test suite ID, test case ID, test name, and status');
-                    printUsage();
-                }
-                const [updatePlanId, updateSuiteId, testCaseId, testName, status] = restArgs;
-                await AzureIntegration.updateTestCase(
-                    parseInt(updatePlanId),
-                    parseInt(updateSuiteId),
-                    parseInt(testCaseId),
-                    testName,
-                    status as 'Passed' | 'Failed'
                 );
                 break;
 

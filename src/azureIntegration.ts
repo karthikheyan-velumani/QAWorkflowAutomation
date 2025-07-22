@@ -91,22 +91,4 @@ export class AzureIntegration {
             throw error;
         }
     }
-
-    static async updateTestCase(testPlanId: number, testSuiteId: number, testCaseId: number, testName: string, status: 'Passed' | 'Failed'): Promise<void> {
-        try {
-            const config = this.getConfig();
-            const azureService = new AzureDevOpsService(config);
-
-            // Update automation details
-            await azureService.updateTestCaseAutomationDetails(testCaseId, testName);
-
-            // Update execution status
-            await azureService.updateTestPointStatus(testPlanId, testSuiteId, testCaseId, status);
-
-            console.log(`Successfully updated test case ${testCaseId} with automation details and status ${status}`);
-        } catch (error) {
-            console.error('Error updating test case:', error);
-            throw error;
-        }
-    }
 }
