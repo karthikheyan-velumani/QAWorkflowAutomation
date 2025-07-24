@@ -48,7 +48,7 @@ export class AzureIntegration {
 
                 // Remove TC{id} if it exists in the name to avoid duplication
                 const nameWithoutId = sanitizedName.replace(new RegExp(`TC${testCase.id}[-_]?`, 'i'), '');
-                const filename = `TC${testCase.id}-${nameWithoutId}` + ' Steps.md';
+                const filename = `TC${testCase.id}-${nameWithoutId}` + '.steps.md';
 
                 const outputPath = path.join(outputDir, filename);
                 await fs.writeFile(outputPath, markdown);
