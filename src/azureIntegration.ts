@@ -63,32 +63,5 @@ export class AzureIntegration {
         }
     }
 
-    static async convertTestToPrompt(inputPath: string, outputPath: string): Promise<void> {
-        try {
-            // Read the input file
-            const content = await fs.readFile(inputPath, 'utf-8');
 
-            // Extract test case ID from filename (assumes format like TC123_Name)
-            const baseFilename = path.basename(inputPath);
-            const idMatch = baseFilename.match(/^TC(\d+)_/);
-            const testCaseId = idMatch ? parseInt(idMatch[1]) : 0;
-
-            // Parse the Azure format
-            const testCase = AzureTestParser.parseAzureFormat(content, testCaseId);
-
-            // Convert to prompt format
-            const prompt = PromptConverter.convertToPrompt(testCase);
-
-            // Convert to markdown
-            const markdown = PromptConverter.convertToMarkdown(prompt);
-
-            // Write to output file
-            await fs.writeFile(outputPath, markdown);
-
-            console.log(`Successfully converted test case to prompt format at ${outputPath}`);
-        } catch (error) {
-            console.error('Error converting test case:', error);
-            throw error;
-        }
-    }
 }
