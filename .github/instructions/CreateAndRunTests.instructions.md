@@ -5,8 +5,8 @@ You are given a set of instructions to create test scripts based on the test ste
 
 
 # Create Test Scripts
-- Use the login helper function to log in before running the test steps - Inside helpers directory.
-- If the test actions have words that the user is already logged in, ensure to use the login helper function to log in before running the test steps.
+- Test Script name should be the same as the test step name but the file extension should be `.spec.md`.
+- Use Exact keyword for buttons and links to ensure the correct element is selected.
 - Use timeout of 15 seconds for each locator to ensure elements are loaded before interacting with them.
 
 # Run Test Scipts

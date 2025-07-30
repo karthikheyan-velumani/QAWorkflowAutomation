@@ -9,7 +9,7 @@ Run the cli.ts to generate test steps from Azure DevOps
 **2. Verify Test Steps**
 - Run the Steps using playwright MCP.
 - Verify each and every step for each test case.
-- Close the browser after the final test is verified.
+- Close the browser after each test is verified.
 - Run and verify all the test cases one by one.(e.g. if there are 5 test cases, run and verify them using playwright MCP one after another)
 
 **3. Store Test Actions**

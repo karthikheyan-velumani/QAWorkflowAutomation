@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 
 interface TestDetails {
     PlanID: string;
-    TestID: string;
+    SuiteID: string;
 }
 
 async function main() {
@@ -19,12 +19,12 @@ async function main() {
 
         console.log(`Fetching test case details from Azure DevOps...`);
         console.log(`Plan ID: ${testDetails.PlanID}`);
-        console.log(`Test Suite ID: ${testDetails.TestID}`);
+        console.log(`Test Suite ID: ${testDetails.SuiteID}`);
         console.log(`Output Directory: ${outputDir}`);
 
         await AzureIntegration.fetchAndConvertTests(
             parseInt(testDetails.PlanID),
-            parseInt(testDetails.TestID),
+            parseInt(testDetails.SuiteID),
             outputDir
         );
 
